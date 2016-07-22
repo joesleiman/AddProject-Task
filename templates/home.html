@@ -17,7 +17,8 @@
                     <ion-list>
                         <ion-item ng-repeat="task in activeProject.tasks" class="item-icon-right">
                             {{task.title}}
-                            
+                            Start Date : {{task.startDate}}
+                            End Date : {{task.endDate}} 
                             <i class="icon ion-ios-minus red" ng-click="deleteTask(activeProject.tasks,$index)"></i>
                         </ion-item>
                     </ion-list>

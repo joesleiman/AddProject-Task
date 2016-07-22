@@ -16,17 +16,18 @@
             <input type="text " placeholder="What do you need to do? " ng-model="task.title ">
           </label>
         </div>
+        
         <div class="item">
           <label class="item item-input" style="width:270px;">
             <span class="input-label">Start Date</span>
-            <input type="date">
+            <input type="date" id="startDate" placeholder="when you want to start this task"  ng-model="task.startDate">
           </label>
-
         </div>
+        
         <div class="item">
           <label class="item item-input" style="width:270px;">
             <span class="input-label">End Date</span>
-            <input type="date">
+            <input type="date" id="endDate" placeholder="expect when you finish this task" ng-model="task.endDate">
           </label>
         </div>
       </div>
