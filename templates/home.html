@@ -10,16 +10,16 @@
                     <h1 class="title">{{activeProject.title}}</h1>
                     <!-- New Task button-->
                     <button class="button button-icon" ng-click="newTask()">
-      <i class="icon ion-compose"></i>
-    </button>
+                        <i class="icon ion-compose"></i>
+                    </button>
                 </ion-header-bar>
                 <ion-content scroll="true">
                     <ion-list>
                         <ion-item ng-repeat="task in activeProject.tasks" class="item-icon-right">
-                            {{task.title}}
-                            Start Date : {{task.startDate}}
-                            End Date : {{task.endDate}} 
+                            {{task.title}} Start Date : {{task.startDate}} End Date : {{task.endDate}}
                             <i class="icon ion-ios-minus red" ng-click="deleteTask(activeProject.tasks,$index)"></i>
+                            
+                            
                         </ion-item>
                     </ion-list>
                 </ion-content>

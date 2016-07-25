@@ -21,7 +21,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
         views: {
           'about-tab': {
             templateUrl: "templates/about.html",
-            controller: 'TodoCtrl'
+            controller: ''
           }
         }
       });

@@ -9,31 +9,42 @@
   <!-- Modal content area -->
   <ion-content>
 
-    <form ng-submit="createTask(task) ">
+    <form ng-submit="createTask(task)">
       <div class="list ">
-        <div class="item">
-          <label class="item item-input " style="padding-left:5px;padding-top:5px;padding-right:5px;padding-bottom:5px;">
+        <div class="item full-width">
+          <label class="item item-input padding-5-all float-left width-95-percentage">
             <input type="text " placeholder="What do you need to do? " ng-model="task.title ">
           </label>
+          <button type="button" class="button button-icon" ng-click="openPopover($event)">
+             <i class="icon ion-information-circled red font-size-25"></i> 
+            </button>
         </div>
-        
+
+
+
         <div class="item">
-          <label class="item item-input" style="width:270px;">
+          <label class="item item-input full-width">
             <span class="input-label">Start Date</span>
             <input type="date" id="startDate" placeholder="when you want to start this task"  ng-model="task.startDate">
+            <span class="item-note">
+              required
+	          </span>
           </label>
         </div>
-        
+
         <div class="item">
-          <label class="item item-input" style="width:270px;">
+          <label class="item item-input full-width">
             <span class="input-label">End Date</span>
             <input type="date" id="endDate" placeholder="expect when you finish this task" ng-model="task.endDate">
+            <span class="item-note">
+              required
+	          </span>
           </label>
         </div>
       </div>
 
       <div class="padding ">
-        <button type="submit " class="button button-block button-positive ">Create Task</button>
+        <button type="submit" class="button button-block button-positive ">Create Task</button>
       </div>
     </form>
 

@@ -1,4 +1,4 @@
-myApp.controller('TodoCtrl', function ($scope, $timeout, $ionicModal, Projects, $ionicSideMenuDelegate) {
+myApp.controller('TodoCtrl', function ($scope, $timeout, $ionicModal, Projects, $ionicSideMenuDelegate, $ionicPopup, $ionicPopover) {
 
     // A utility function for creating a new project
     // with the given projectTitle
@@ -33,7 +33,7 @@ myApp.controller('TodoCtrl', function ($scope, $timeout, $ionicModal, Projects, 
     confirmProjectTitle = function (projectTitle) {
         var b = angular.fromJson(window.localStorage['projects']);
         for (var i = 0; i < b.length; i++) {
-            if (b[i].title == projectTitle) {
+            if (b[i].title.toLowerCase() == projectTitle.toLowerCase()) {
                 return false;
             }
 
@@ -95,20 +95,47 @@ myApp.controller('TodoCtrl', function ($scope, $timeout, $ionicModal, Projects, 
     }, {
             scope: $scope
         });
+
+    //check the title if it  exists 
     confirmTaskTitle = function (taskTitle) {
         var b = angular.fromJson(window.localStorage['projects']);
         for (var i = 0; i < b.length; i++) {
             for (var j = 0; j < b[i].tasks.length; j++) {
-                if (b[i].tasks[j].title == taskTitle) {
+                if (b[i].tasks[j].title.toLowerCase() == taskTitle.toLowerCase()) {
                     return false;
                 }
             }
         }
         return true;
     }
+
+    //create a popOver
+    var template = '<ion-popover-view><ion-header-bar> <h1 class="title">Task\'s Title</h1> </ion-header-bar> <ion-content> <p><b>Task\'s Title</b> must exist one time </p><p> all the fields are required</p></ion-content></ion-popover-view>';
+
+    $scope.popover = $ionicPopover.fromTemplate(template, {
+        scope: $scope
+    });
+
+    $scope.openPopover = function ($event) {
+        $scope.popover.show($event);
+    };
+
+    //Alert in a modal , if the form don't valid
+    $scope.showAlert = function () {
+        var alertPopup = $ionicPopup.alert({
+            title: 'Warning',
+            template: "<p>you have to put an <b>unexist task's title</b><p>" + "<p>The <b>START Date</b> and <b>END Date</b> are required <p>"
+        });
+
+    };
+
+
+
     //Create task
     $scope.createTask = function (task) {
         if (!$scope.activeProject || !task.title || task.startDate == null || task.endDate == null || !confirmTaskTitle(task.title)) {
+
+            $scope.showAlert();
             return;
         }
 
@@ -149,6 +176,7 @@ myApp.controller('TodoCtrl', function ($scope, $timeout, $ionicModal, Projects, 
     };
 
 
+
     // Try to create the first project, make sure to defer
     // this by using $timeout so everything is initialized
     // properly
@@ -162,7 +190,28 @@ myApp.controller('TodoCtrl', function ($scope, $timeout, $ionicModal, Projects, 
                 }
             }
         }
+        
+        
     }, 1000);
+    
+   var finishedTask = function () {
+        var today = new Date();
+        today = today.getDate() + "-" + today.getMonth() + "-" + today.getFullYear();
+        var b = angular.fromJson(window.localStorage['projects']);
+        for (var i = 0; i < b.length; i++) {
+            for (var j = 0; j < b[i].tasks.length; j++) {
+                if (b[i].tasks[j].endDate == today) {
+                    alert("The task " +  b[i].tasks[j].title + " is finished.");
+                    
+                }
+            }
+        }
+
+    };
+    $timeout(finishedTask,2000);
+    
+    
+    
 
 
 
